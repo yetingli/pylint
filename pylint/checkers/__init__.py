@@ -7,6 +7,7 @@
 # Copyright (c) 2015 Ionel Cristian Maries <contact@ionelmc.ro>
 # Copyright (c) 2016 Moises Lopez <moylop260@vauxoo.com>
 # Copyright (c) 2017-2018 Bryce Guinta <bryce.paul.guinta@gmail.com>
+# Copyright (c) 2020 Frank Harrison <doublethefish@gmail.com>
 
 # Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # For details: https://github.com/PyCQA/pylint/blob/master/COPYING
@@ -40,6 +41,7 @@ messages nor reports. XXX not true, emit a 07 report !
 """
 
 from pylint.checkers.base_checker import BaseChecker, BaseTokenChecker
+from pylint.checkers.mapreduce_checker import MapReduceMixin
 from pylint.utils import register_plugins
 
 
