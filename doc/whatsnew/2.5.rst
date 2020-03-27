@@ -92,3 +92,5 @@ Other Changes
   This command lists all extensions present in ``pylint.extensions``.
 
 * Various false positives have been fixed which you can read more about in the Changelog files.
+
+* Fixes duplicate code detection for --jobs=2+
