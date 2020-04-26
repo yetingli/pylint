@@ -92,3 +92,8 @@ Other Changes
   This command lists all extensions present in ``pylint.extensions``.
 
 * Various false positives have been fixed which you can read more about in the Changelog files.
+
+*  The score option for JSON export has been fixed
+
+  The default setting is to have a score, but it did not work before. If a score appeared in your json, and you want to
+  go back what you had before, you must change the score option to "--score=n"
