@@ -622,6 +622,7 @@ class LintModuleTest:
 
     def _check_output_text(self, expected_messages, expected_lines, received_lines):
         expected_lines = self._split_lines(expected_messages, expected_lines)[0]
-        assert (
-            expected_lines == received_lines
-        ), "Expected test lines did not match for test: {}".format(self._test_file.base)
+        for expected, received in zip(expected_lines, received_lines):
+            assert (
+                expected == received
+            ), f"In '{self._test_file.base}' first unmatched lines: {expected} != {received}"
