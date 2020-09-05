@@ -80,16 +80,25 @@ class LenChecker(checkers.BaseChecker):
         # could be if, while, assert or if expression statement
         # e.g. `if len(S):`
         if _is_call_of_name(node, "len"):
+
             # the len() call could also be nested together with other
             # boolean operations, e.g. `if z or len(x):`
             parent = node.parent
             while isinstance(parent, astroid.BoolOp):
                 parent = parent.parent
-
             # we're finally out of any nested boolean operations so check if
             # this len() call is part of a test condition
             if _is_test_condition(node, parent):
-                self.add_message("len-as-condition", node=node)
+                instance = next(node.args[0].infer())
+                mother_classes = self.base_classes_of_node(instance)
+                affected_by_pep8 = any(
+                    t in mother_classes for t in ["str", "tuple", "range", "list"]
+                )
+                if affected_by_pep8 and not self.instance_has_bool(instance):
+                    self.add_message("len-as-condition", node=node)
+
+    def instance_has_bool(self, class_def: astroid.ClassDef) -> bool:
+        return any(hasattr(f, "name") and f.name == "__bool__" for f in class_def.body)
 
     @utils.check_messages("len-as-condition")
     def visit_unaryop(self, node):
