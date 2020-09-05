@@ -2,7 +2,7 @@
 
 # Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # For details: https://github.com/PyCQA/pylint/blob/master/COPYING
-from typing import Optional
+from typing import List, Optional
 
 import astroid
 
@@ -102,3 +102,17 @@ class LenChecker(checkers.BaseChecker):
             and _is_call_of_name(node.operand, "len")
         ):
             self.add_message("len-as-condition", node=node)
+
+    @staticmethod
+    def base_classes_of_node(instance: astroid.nodes.ClassDef) -> List[astroid.Name]:
+        mother_classes = [instance.name]
+        base_classes = instance.bases
+        while base_classes and "object" not in mother_classes:
+            new_instances = []
+            for base_class in base_classes:
+                mother_classes.append(base_class.name)
+                inferred_class = next(base_class.infer())
+                if inferred_class.bases:
+                    new_instances += inferred_class.bases
+            base_classes = new_instances
+        return mother_classes
