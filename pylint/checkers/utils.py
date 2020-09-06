@@ -53,11 +53,12 @@ import string
 from functools import lru_cache, partial
 from typing import Callable, Dict, Iterable, List, Match, Optional, Set, Tuple, Union
 
-import _string
 import astroid
 from astroid import bases as _bases
 from astroid import helpers, scoped_nodes
 from astroid.exceptions import _NonDeducibleTypeHierarchy
+
+import _string
 
 BUILTINS_NAME = builtins.__name__
 COMP_NODE_TYPES = (
