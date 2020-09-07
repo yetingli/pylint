@@ -622,7 +622,15 @@ class LintModuleTest:
 
     def _check_output_text(self, expected_messages, expected_lines, received_lines):
         expected_lines = self._split_lines(expected_messages, expected_lines)[0]
-        for expected, received in zip(expected_lines, received_lines):
-            assert (
-                expected == received
-            ), f"In '{self._test_file.base}' first unmatched lines: {expected} != {received}"
+        missing = set(expected_lines) - set(received_lines)
+        unexpected = set(received_lines) - set(expected_lines)
+        error_msg = f"'{self._test_file.base}':\n"
+        if missing:
+            error_msg += "- Missing lines:\n{str_missing}"
+            for line in missing:
+                error_msg += f"{line}\n"
+        if unexpected:
+            error_msg += "- Unexpected lines:\n"
+            for line in unexpected:
+                error_msg += f"{line}\n"
+        assert expected_lines == received_lines, error_msg
