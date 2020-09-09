@@ -624,13 +624,13 @@ class LintModuleTest:
         expected_lines = self._split_lines(expected_messages, expected_lines)[0]
         missing = set(expected_lines) - set(received_lines)
         unexpected = set(received_lines) - set(expected_lines)
-        error_msg = f"'{self._test_file.base}':\n"
+        error_msg = "'{}':\n".format(self._test_file.base)
         if missing:
             error_msg += "- Missing lines:\n{str_missing}"
             for line in missing:
-                error_msg += f"{line}\n"
+                error_msg += "{}\n".format(line)
         if unexpected:
             error_msg += "- Unexpected lines:\n"
             for line in unexpected:
-                error_msg += f"{line}\n"
+                error_msg += "{}\n".format(line)
         assert expected_lines == received_lines, error_msg
