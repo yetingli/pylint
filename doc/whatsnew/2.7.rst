@@ -16,3 +16,4 @@ New checkers
 
 Other Changes
 =============
+* Fix vulnerable regular expressions in ``pyreverse``. The ambiguities of vulnerable regular expressions are removed, making the repaired regular expressions safer and faster matching.

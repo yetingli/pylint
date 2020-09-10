@@ -1,6 +1,13 @@
 ------------------
 Pylint's ChangeLog
 ------------------
+What's New in Pylint 2.7?
+===========================
+Release date: 2020-09-10
+
+* Fix vulnerable regular expressions in ``pyreverse``
+
+  Close #3811
 
 What's New in Pylint 2.6.1?
 ===========================
